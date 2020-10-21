@@ -21,8 +21,8 @@ var vm = new Vue({
   
 mounted () {
   axios
-    .get('https://airevent-portal.microcms.io/api/v1/test?limit=100&orders=-publishedAt',{
-      headers: {"X-API-KEY": "28a68804-33dd-4786-8488-dbedcd89272a"}
+    .get('https://y-t-zj4rb.microcms.io/api/v1/information',{
+      headers: {"X-API-KEY": "da755a34-ebf7-4727-aaec-3484d7bb1f1f"}
     })
     .then(response => (this.items = response.data.contents))
     .catch(error => {

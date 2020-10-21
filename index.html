@@ -32,13 +32,20 @@
     <div class="header-img">
       <img src="img/01.jpg" alt="">
     </div>
-    <p>フードビジネスのスタート地点</p>
-    <div class="information">
+    <div class="copy">
+      <p>フードビジネスのスタートライン。</p>
+    </div>
+    <div class="information" id="header">
       <h2>Information</h2>
-      <ul class="information-line">
-        <li>qawsedrftgyhujikolp;@</li>
-        <li>qawsedrftgyhujikolp;@</li>
-      </ul>
+      <div class="info-line">
+        <ul class="info-wrapper">
+          <li v-for="item in result" :key="item.title">
+            <p class="info-date">{{item.date}}</p>
+            <p class="info-title">{{item.title}}</p>
+          </li>
+        </ul>
+        <div class="btn01"><a href="information.html">お知らせへ</a></div>
+      </div>
     </div>
   </header>
   <div>
@@ -114,6 +121,7 @@
   </div>
   
   <script src="js/events.js"></script>
+  <script src="js/header.js"></script>
   <script>
     new Vue({ el: '#navi' })
     new Vue({ el: '#left' })
