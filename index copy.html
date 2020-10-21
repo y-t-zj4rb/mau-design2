@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title>YT-foods</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="食品">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.css">
+  <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.min.js"></script>
+
+</head>
+
+<body>
+  <div class="header">
+    <h1 class="pc-header"><img src="img/header.png" alt="エアイベントポータル"></h1>
+  </div>
+
+  <div class="container" id="app">
+        
+    <div class="cl-left">
+			<div class="nav">
+        <details class="nav-red" open>
+          <summary><h3>サークル様向け</h3></summary>
+          <a class="gallery-item" href="img/img01.jpg" @click.prevent="zoom">基本情報</a>
+          <a class="gallery-item" href="img/img02.jpg" @click.prevent="zoom">参加申込方法</a>
+          <a href="pdf/for_circle.pdf" target="_blank">詳細要項(PDF)</a>
+          <a href="https://circle.melonbooks.co.jp/terms/">利用規約</a>
+          <a href="https://www.melonbooks.co.jp/help/tpl.php?pid=305">Q&A</a>
+          <a href="https://circle.melonbooks.co.jp/inquiry/">お問い合わせ</a>
+        </details>
+        <details class="nav-yellow" open>
+          <summary><h3>イベンター様向け</h3></summary>
+          <a class="gallery-item" href="img/img03.jpg" @click.prevent="zoom">エアイベントとは？</a>
+          <a href="pdf/for_eventer.pdf" target="_blank">開催概要PDF</a>
+          <a href="">申込方法</a>
+          <a class="gallery-item" href="img/img04.jpg" @click.prevent="zoom">お申込み(※準備中)</a>
+          <a href="https://circle.melonbooks.co.jp/terms/">利用規約</a>
+          <a href="https://www.melonbooks.co.jp/help/tpl.php?pid=311">Q&A</a>
+          <a href="https://circle.melonbooks.co.jp/inquiry/">お問い合わせ</a>
+        </details>
+        <details class="nav-blue">
+          <summary><h3>Twitter</h3></summary>
+        </details>
+        <a height="600" class="twitter-timeline" href="https://twitter.com/strongestmelon?ref_src=twsrc%5Etfw">Tweets by strongestmelon</a>
+      </div>
+    </div>
+    
+    <transition name="fade">
+      <div class="bg" @click.self="close" v-show="isShow">
+        <transition name="slide" @after-leave="afterLeave">
+          <div class="modal" v-show="isShow">
+            <div class="img-wrapper"><img :src="src" alt=""></div>
+            <button class="modal-btn" @click="close">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </transition>
+      </div>
+    </transition>
+    
+    <main class="main">
+      <div class="infomation">
+        <a href="pdf/about_air_event_form.pdf" target="_blank">【重要】サークルポータル内での登録フォーム実装について</a>
+      </div>
+      <h3>募集中のエアイベント一覧</h3>
+      <div class="filter">
+        <p>イベントを探す</p>
+        <div class="filter-year">
+          <label v-for="index of 2" :class='{active:2019+index === year}' :key="index">
+            <input v-model="year" :value="2019 + index" type="radio" name="year" @click='isActive'>
+            {{2019 + index}}年
+          </label>
+        </div>
+        <div class="filter-month">
+          <label v-for="index of 12" :class="{active:index === month }">
+            <input v-model="month" :value="index" type="radio" name="month" @click="isActive">
+            {{index}}月
+          </label>
+        </div>
+        <div class="btn-clear">
+          <button v-on:click="removetext()">クリア</button>
+        </div>
+        <p>{{result.length}}件</p>
+      </div>
+      
+      <hooper :items-to-show="2.5">
+        <slide
+          v-for="(item,index) in result"
+          :key="item.index"
+        >
+          <div class="data-wrapper">
+            <div class="g-img">
+              <img src="https://picsum.photos/700/200">
+              <!-- <img :src="item.img"> -->
+            </div>
+            <div class="g-schedule">
+              {{ item.schedule }}
+            </div>
+            <div class="g-host">
+              主催:{{ item.host }}
+            </div>
+            <div class="g-title">
+              {{ item.title }}
+            </div>
+            <div class="g-genre">
+              <span>{{ item.genre }}</span>
+            </div>
+            <div class="g-deadline">
+              募集期間<br>{{ item.schedule }}
+            </div>
+            <div class="g-link">
+              <a :href="item.url">募集ページへ</a>
+              <a :href="item.url">イベント公式サイトへ</a>
+            </div>
+          </div>
+        </slide>
+      </hooper>
+      <p v-if="result.length === 0" style="padding:100px 0;text-align: center;">開催予定のイベントはありません</p>
+
+      <h3>メリット</h3>
+      <h4><span>サークル様向けメリット</span></h4>
+      <div class="box-wrapper">
+        <div class="box">
+          <p><img src="img/icon01.png"></p>
+          <h5>販売価格の85%還元</h5>
+          <p>イベント販売分に関しては85%還元いたします。</p>
+        </div>
+        <div class="box">
+          <p><img src="img/icon02.png"></p>
+          <h5>ポータルから簡単登録</h5>
+          <p>メロンサークルポータルアカウントを登録するだけで簡単に参加できます。<br>ポータルに登録している作品情報を活用もできます。</p>
+        </div>
+        <div class="box">
+          <p><img src="img/icon03.png"></p>
+          <h5>イベント在庫預かり無料</h5>
+          <p>イベント終了後の残部は無料でメロンブックスにお預け可能です。</p>
+        </div>
+      </div>
+      <h4><span class="border-yellow">イベンター様向けメリット</span></h4>
+      <div class="box-wrapper">
+        <div class="box">
+          <p><img src="img/icon01.png"></p>
+          <h5>すべて無料で開催可能</h5>
+          <p>商品ページの運用、決済、発送等はすべてメロンが代行対応<br>イベンター様は募集、告知のみで開催できます。</p>
+        </div>
+        <div class="box">
+          <p><img src="img/icon04.png"></p>
+          <h5>運用はすべて代行</h5>
+          <p>ポータル募集ページの運用、作品管理、納品受付、販売ページ管理、決済、発送<br>すべてメロンブックスが代行お対応します。</p>
+        </div>
+      </div>
+      <div class="box-wrapper">
+        <div class="box">
+          <p><img src="img/icon01.png"></p>
+          <h5>最大5%を還元</h5>
+          <p>エアイベント内売上の5%を主催者様に還元いたします。<br>※還元率のご相談ももちろん可能です。</p>
+        </div>
+        <div class="box">
+          <p><img src="img/icon05.png"></p>
+          <h5>実際のイベントとの併催も可能</h5>
+          <p>元イベントの当落に関わらず、エアイベント限定の追加募集が可能です。</p>
+        </div>
+      </div>
+      <h4><span class="border-blue">来場者様向けメリット</span></h4>
+      <div class="box-wrapper">
+        <div class="box">
+          <p><img src="img/icon06.png"></p>
+          <h5>委託書店より安く販売</h5>
+          <p>掛率が高い分、店頭価格を下げて頒布できますので、委託書店よりも安く購入できます。</p>
+        </div>
+        <div class="box">
+          <p><img src="img/icon07.png"></p>
+          <h5>発送費用が安い</h5>
+          <p>メール便：270円、宅急便：600円<br>自家通販よりも安く発送可能です。</p>
+        </div>
+        <div class="box">
+          <p><img src="img/icon08.png"></p>
+          <h5>作品がすぐに届く</h5>
+          <p>当日16時までのご注文については即日発送いたします。<br>※お住いの地域、混雑状況によりご対応が難しい場合がございます。</p>
+        </div>
+      </div>
+
+      <h3>エアイベント開催履歴</h3>
+      <div class="filter">
+        <p>イベントを探す</p>
+        <div class="filter-year">
+          <label v-for="index of 2" :class='{active:2019+index === year2}' :key="index">
+            <input v-model="year2" :value="2019 + index" type="radio" name="year2" @click='isActive'>
+            {{2019 + index}}年
+          </label>
+        </div>
+        <div class="filter-month">
+          <label v-for="index of 12" :class="{active:index === month2 }">
+            <input v-model="month2" :value="index" type="radio" name="month2" @click="isActive">
+            {{index}}月
+          </label>
+        </div>
+        <div class="btn-clear">
+          <button v-on:click="removetext2()">クリア</button>
+        </div>
+        <p>{{past.length}}件</p>
+      </div>
+      
+      <hooper :items-to-show="2.5">
+        <slide
+          v-for="(item,index) in past"
+          :key="item.index"
+        >
+          <div class="data-wrapper">
+            <div class="g-img">
+              <img src="https://picsum.photos/700/200">
+              <!-- <img :src="item.img"> -->
+            </div>
+            <div class="g-schedule">
+              {{ item.schedule }}
+            </div>
+            <div class="g-host">
+              主催:{{ item.host }}
+            </div>
+            <div class="g-title">
+              {{ item.title }}
+            </div>
+            <div class="g-genre">
+              <span>{{ item.genre }}</span>
+            </div>
+          </div>
+        </slide>
+      </hooper>
+      <p v-if="past.length === 0" style="padding:100px 0;text-align: center;">イベントはありません</p>
+
+
+    </main>
+  </div>
+
+  <div class="footer">
+    <div class="copyright">2020&copy;Melonbooks</div>
+  </div>
+  
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="js/events.js"></script>
+</body>
+
+</html>

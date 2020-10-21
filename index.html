@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title>YT-foods</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="食品">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.css">
+  <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="css/svg.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.min.js"></script>
+  <script src="js/components.js"></script>
+
+</head>
+
+<body>
+  <nav class="navi" id="navi">
+    <navi></navi>
+  </nav>
+  <header class="header">
+    <h1>
+      <span>Fictious</span>
+      <span>&nbsp;Foods</span>
+      <span>&nbsp;&nbsp;Company</span>
+    </h1>
+    <div class="header-img">
+      <img src="img/01.jpg" alt="">
+    </div>
+    <p>フードビジネスのスタート地点</p>
+    <div class="information">
+      <h2>Information</h2>
+      <ul class="information-line">
+        <li>qawsedrftgyhujikolp;@</li>
+        <li>qawsedrftgyhujikolp;@</li>
+      </ul>
+    </div>
+  </header>
+  <div>
+    <svg id="icon-mouse-scroll" viewBox="-105 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#ccc" d="M151 0C68 0 0 68 0 151v210a151 151 0 0 0 301 0V151C301 68 234 0 151 0zm119 361a120 120 0 0 1-239 0V151a120 120 0 0 1 239 0zm0 0" />
+      <path class="scroll" fill="#ea3970" stroke-width="2" d="M151 102c-9 0-16 7-16 15v71a15 15 0 0 0 31 0v-71c0-8-7-15-15-15zm0 0" />
+    </svg>
+    <p>scroll</p>
+  </div>
+
+  <div class="container" id="app">
+    <main class="main">
+      <h3>募集中のエアイベント一覧</h3>
+      <div class="filter">
+        <p>イベントを探す</p>
+        <div class="filter-year">
+          <label v-for="index of 2" :class='{active:2019+index === year}' :key="index">
+            <input v-model="year" :value="2019 + index" type="radio" name="year" @click='isActive'>
+            {{2019 + index}}年
+          </label>
+        </div>
+        <div class="filter-month">
+          <label v-for="index of 12" :class="{active:index === month }">
+            <input v-model="month" :value="index" type="radio" name="month" @click="isActive">
+            {{index}}月
+          </label>
+        </div>
+        <div class="btn-clear">
+          <button v-on:click="removetext()">クリア</button>
+        </div>
+        <p>{{result.length}}件</p>
+      </div>
+      
+      <hooper :items-to-show="2.5">
+        <slide
+          v-for="(item,index) in result"
+          :key="item.index"
+        >
+          <div class="data-wrapper">
+            <div class="g-img">
+              <img src="https://picsum.photos/700/200">
+              <!-- <img :src="item.img"> -->
+            </div>
+            <div class="g-schedule">
+              {{ item.schedule }}
+            </div>
+            <div class="g-host">
+              主催:{{ item.host }}
+            </div>
+            <div class="g-title">
+              {{ item.title }}
+            </div>
+            <div class="g-genre">
+              <span>{{ item.genre }}</span>
+            </div>
+            <div class="g-deadline">
+              募集期間<br>{{ item.schedule }}
+            </div>
+            <div class="g-link">
+              <a :href="item.url">募集ページへ</a>
+              <a :href="item.url">イベント公式サイトへ</a>
+            </div>
+          </div>
+        </slide>
+      </hooper>
+      <p v-if="result.length === 0" style="padding:100px 0;text-align: center;">開催予定のイベントはありません</p>
+
+    </main>
+  </div>
+
+  <div class="footer">
+    <div class="copyright">2020&copy;Melonbooks</div>
+  </div>
+  
+  <script src="js/events.js"></script>
+  <script>
+    new Vue({ el: '#navi' })
+    new Vue({ el: '#left' })
+    new Vue({ el: '#right' })
+  </script>
+</body>
+
+</html>
