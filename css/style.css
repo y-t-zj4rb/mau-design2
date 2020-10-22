@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
-html{scroll-behavior: smooth;
+html{
+	scroll-behavior: smooth;
+	font-family:
+	/* 'Impact', */
+	YuGothic,
+	'Yu Gothic',
+	'ヒラギノ角ゴシック',
+	'Hiragino Sans',
+	'ヒラギノ丸ゴ ProN',
+	'Hiragino Maru Gothic ProN',
+	sans-serif;
 }
 body{position: relative;}
 a{text-decoration: none;word-break: break-all;}
@@ -35,11 +45,15 @@ summary {
 .title1{
 	text-align: center;
 	padding:6px 0;
-	margin:10px auto 20px;
+	margin:10px auto 0;
 	font-size:34px;
 }
 .title1 span{
 	border-bottom:5px solid #EDCD26;
+}
+.subtitle1{
+	text-align: center;
+    font-weight: bold;
 }
 /*-----------nav-----------*/
 .navi{
@@ -355,6 +369,7 @@ section{
 	  'img'
 	  'date'
 	  'title'
+	  'body'
 		;
 	  gap: 15px 0;
 	  /* grid-template-rows:50px 50px 60px 1fr; */
@@ -383,4 +398,10 @@ section{
 	  border-bottom:2px dotted #ddd;
 	  margin:0 10px;
 	  padding:6px 0;
+  }
+  .g-body {
+	  grid-area: body;
+	  font-size:15px;
+	  font-weight:normal;
+	  color:#666;
   }

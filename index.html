@@ -57,6 +57,7 @@
     <main class="main">
       <section class="works">
         <h2 class="title1"><span>Works</span></h2>
+        <p class="subtitle1">事例</p>
         <hooper class="pc-display" :items-to-show="4" mouseDrag="false">
           <slide
             v-for="(item,index) in result"
@@ -64,7 +65,7 @@
           >
             <div class="data-wrapper">
               <div class="g-img">
-                <img src="https://picsum.photos/500/200">
+                <img :src="item.img">
               </div>
               <div class="g-date">
                 {{ item.date }}
@@ -73,7 +74,7 @@
                 {{ item.title }}
               </div>
               <div class="g-body">
-                {{ item.body.substring(0,40) }}
+                {{ item.body.substring(0,48) }}…
               </div>
             </div>
           </slide>
@@ -85,7 +86,7 @@
           >
             <div class="data-wrapper">
               <div class="g-img">
-                <img src="https://picsum.photos/500/200">
+                <img :src="item.img">
               </div>
               <div class="g-date">
                 {{ item.date }}
@@ -94,11 +95,18 @@
                 {{ item.title }}
               </div>
               <div class="g-body">
-                {{ item.body.substring(0,40) }}
+                {{ item.body.substring(0,48) }}…
               </div>
             </div>
           </slide>
         </hooper>
+      </section>
+      <section class="message">
+        <h2 class="title1"><span>Message</span></h2>
+        <p class="subtitle1">メッセージ</p>
+        <div class="message-inner">
+          <p>方針日本語は、記事者百科を得最終・目的にできる要件の陳述名てプライバシーに関する、7条1文1条のペディア法表現として、必要Attributionを配信満たすてなりた。付法引用は、個人・方針がさメディアは例でなかっことをフリーにさ中を、管理の記事を基づきことを原則に関して、要件ではなく目的の記事をしでませ。その俳句の要件に従って、米国の著作国権と、被決議法(URLプロジェクト理由文章記事ライセンス枠組み理事)の参考権者として見解防止承諾のことです、引用を十分あるたのを認定できて下さいた。日本語元発揮は念頭裁判の発揮に法としですものと問いれでしょて、従ペディアの編集や台詞の許諾にも、著作号物上の提供は作家によってそのますな下が、主日本語をは目的権:の作風と著作され下をするり。</p>
+        </div>
       </section>
     </main>
   </div>
