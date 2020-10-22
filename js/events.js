@@ -1,4 +1,4 @@
-var vm = new Vue({
+var app2 = new Vue({
   el: '#app',
   components: {
     Hooper: window.Hooper.Hooper,
@@ -21,7 +21,7 @@ var vm = new Vue({
   
 mounted () {
   axios
-    .get('https://y-t-zj4rb.microcms.io/api/v1/information',{
+    .get('https://y-t-zj4rb.microcms.io/api/v1/works',{
       headers: {"X-API-KEY": "da755a34-ebf7-4727-aaec-3484d7bb1f1f"}
     })
     .then(response => (this.items = response.data.contents))

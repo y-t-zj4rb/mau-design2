@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title>YT-foods</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="食品">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.css">
+  <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+</head>
+
+<body>
+  <style>
+body {
+  font-family: 'Abhaya Libre', Times, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.centered {
+  margin: 0 auto;
+  display: table;
+  font-size: 60px;
+  margin-top: 100px;
+}
+
+.box {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 8px 20px;
+  line-height: 1.3em;
+  opacity: 0;
+  color: white;
+  width: 200px;
+  margin: 300px auto;
+  transform: translateZ(0);
+  perspective: 1000px;
+  backface-visibility: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  transition: 2s;
+}
+
+#app {
+  height: 2000px;
+}
+  </style>
+  <div id="app">
+    <h1 class="centered">Scroll me</h1>
+    <div class="box" v-scroll="handleScroll">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque amet harum aut ab veritatis earum porro praesentium ut corporis. Quasi provident dolorem officia iure fugiat, eius mollitia sequi quisquam.</p>
+    </div>
+    <div class="box" v-scroll="handleScroll">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque amet harum aut ab veritatis earum porro praesentium ut corporis. Quasi provident dolorem officia iure fugiat, eius mollitia sequi quisquam.</p>
+    </div>
+    <div class="box" v-scroll="handleScroll">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque amet harum aut ab veritatis earum porro praesentium ut corporis. Quasi provident dolorem officia iure fugiat, eius mollitia sequi quisquam.</p>
+    </div>
+    <div class="box" v-scroll="handleScroll">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque amet harum aut ab veritatis earum porro praesentium ut corporis. Quasi provident dolorem officia iure fugiat, eius mollitia sequi quisquam.</p>
+    </div>
+  </div>
+  <script>
+    Vue.directive('scroll', {
+  inserted: function(el, binding) {
+    let f = function(evt) {
+      if (binding.value(evt, el)) {
+        window.removeEventListener('scroll', f);
+      }
+    };
+    window.addEventListener('scroll', f);
+  },
+});
+
+// main app
+new Vue({
+  el: '#app',
+  methods: {
+   handleScroll: function(evt, el) {
+    if (window.scrollY > 50) {
+      el.setAttribute("style", "opacity: 1; transform: translate3d(0, -20px, 0)")
+    }
+    return window.scrollY > 100;
+    }
+  }
+});
+  </script>
+</body>
+
+</html>

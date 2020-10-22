@@ -1,8 +1,8 @@
-  svg {
+.moving-icon svg {
     text-align: center;
     margin: auto;
     width: 100px;
-    height: 100px;
+    height: 50px;
   }
 
   #icon-mouse-scroll .scroll {
@@ -32,4 +32,18 @@
       -webkit-transform: translate(0px, 80px);
       transform: translate(0px, 80px);
     }
+  }
+  .moving-icon{
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* transform: translateY(10px); */
+    width: 40px;
+    justify-content: center;
+  }
+  .moving-icon p{
+    color:#333;
+    font-weight:bold;
   }
