@@ -47,3 +47,51 @@
     color:#333;
     font-weight:bold;
   }
+
+
+/*-----------------------------*/
+
+.svg-atoz path {
+    fill: none;
+    stroke: #333; /*線の色を指定する*/
+    stroke-dasharray: 2000;/*線の間隔を指定する*/
+    stroke-dashoffset: 0;/*線の位置を指定する(IEは効かない属性)*/
+    stroke-width: 2;/*線の太さを指定する*/
+    -webkit-animation: hello 5s ease-in alternate infinite;
+    animation: hello 5s ease-in alternate infinite;
+}
+ @-webkit-keyframes hello {
+ 0% {
+ stroke-dashoffset: 2000;
+ fill:transparent; /*透過*/
+}
+ 30% {
+ fill:transparent; /*透過*/
+}
+60% {
+stroke-dashoffset: 0;
+fill:#333;
+}
+100% {
+stroke-dashoffset: 0;
+fill:#333;
+}
+}
+@keyframes hello {
+  0% {
+  stroke-dashoffset: 2000;
+  fill:transparent; /*透過*/
+ }
+  30% {
+  fill:transparent; /*透過*/
+ }
+ 60% {
+ stroke-dashoffset: 0;
+ fill:#333;
+ }
+ 100% {
+ stroke-dashoffset: 0;
+ fill:#333;
+ }
+}
+.cls-1{fill:#fff;stroke:#000;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;}
