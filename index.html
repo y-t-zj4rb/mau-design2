@@ -29,7 +29,7 @@
     </div>
     <transition appear>
       <div class="copy">
-        <p>フードビジネスのスタートライン。</p>
+        <p>フードビジネスの<br class="sp-display">スタートライン。</p>
       </div>
     </transition>
     <div class="information">
@@ -120,9 +120,9 @@
     </main>
   </div>
 
-  <div class="footer">
-    <div class="copyright">2020&copy;Melonbooks</div>
-  </div>
+  <footer class="footer" id="foot">
+    <foot></foot>
+  </footer>
   
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
@@ -132,6 +132,7 @@
   <script src="js/header.js"></script>
   <script>
     new Vue({ el: '#navi' })
+    new Vue({ el: '#foot' })
   </script>
 </body>
 
