@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<title>YT-foods</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="食品">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.css">
+  <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
+  <link type="text/css" rel="stylesheet" media="all" href="css/svg.css" />
+</head>
+
+<body>
+  <nav class="navi" id="navi">
+    <navi></navi>
+  </nav>
+  <header class="header">
+    <h1>
+      <span>Fictious</span>
+      <span>&nbsp;Foods</span>
+      <span>&nbsp;&nbsp;Company</span>
+    </h1>
+  </header>
+
+  <div class="container" id="header">
+    <main class="main">
+      <section class="Information">
+        <h2 class="title1"><span>News</span></h2>
+        <p class="subtitle1">お知らせ</p>
+        <div class="news">
+          <ul class="news-wrapper">
+            <li v-for="item in result" :key="item.title">
+              <p class="info-date">{{item.date}}</p>
+              <p class="info-title">{{item.title}}</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer" id="foot">
+    <foot></foot>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/header.js"></script>
+  <script>
+    new Vue({ el: '#navi' })
+    new Vue({ el: '#foot' })
+  </script>
+</body>
+
+</html>

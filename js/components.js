@@ -5,7 +5,7 @@ Vue.component('navi', {
             <ul class="g-nav">
                 <li><a href="./">Home</a></li>
                 <li><a href="news.html">News</a></li>
-                <li><a href="terms.html">Works</a></li>
+                <li><a href="works.html">Works</a></li>
             </ul>
         </div>
     `
@@ -17,7 +17,7 @@ Vue.component('navi', {
             <ul class="foot-nav">
                 <li><a href="./">Home</a></li>
                 <li><a href="news.html">News</a></li>
-                <li><a href="terms.html">Works</a></li>
+                <li><a href="works.html">Works</a></li>
             </ul>
             <div class="copyright">2020&copy;FictiousFoodsCompany</div>
         </div>

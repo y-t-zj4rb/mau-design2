@@ -2,7 +2,6 @@ var app1 = new Vue({
   el: '#header',
   data: {
     items:[],
-    message:'ありがとう',
   },
   
 mounted () {
