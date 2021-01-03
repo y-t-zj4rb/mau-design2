@@ -11,240 +11,124 @@
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.css">
   <link type="text/css" rel="stylesheet" media="all" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.min.js"></script>
-
+  <link type="text/css" rel="stylesheet" media="all" href="css/svg.css" />
 </head>
 
 <body>
-  <div class="header">
-    <h1 class="pc-header"><img src="img/header.png" alt="エアイベントポータル"></h1>
-  </div>
-
-  <div class="container" id="app">
-        
-    <div class="cl-left">
-			<div class="nav">
-        <details class="nav-red" open>
-          <summary><h3>サークル様向け</h3></summary>
-          <a class="gallery-item" href="img/img01.jpg" @click.prevent="zoom">基本情報</a>
-          <a class="gallery-item" href="img/img02.jpg" @click.prevent="zoom">参加申込方法</a>
-          <a href="pdf/for_circle.pdf" target="_blank">詳細要項(PDF)</a>
-          <a href="https://circle.melonbooks.co.jp/terms/">利用規約</a>
-          <a href="https://www.melonbooks.co.jp/help/tpl.php?pid=305">Q&A</a>
-          <a href="https://circle.melonbooks.co.jp/inquiry/">お問い合わせ</a>
-        </details>
-        <details class="nav-yellow" open>
-          <summary><h3>イベンター様向け</h3></summary>
-          <a class="gallery-item" href="img/img03.jpg" @click.prevent="zoom">エアイベントとは？</a>
-          <a href="pdf/for_eventer.pdf" target="_blank">開催概要PDF</a>
-          <a href="">申込方法</a>
-          <a class="gallery-item" href="img/img04.jpg" @click.prevent="zoom">お申込み(※準備中)</a>
-          <a href="https://circle.melonbooks.co.jp/terms/">利用規約</a>
-          <a href="https://www.melonbooks.co.jp/help/tpl.php?pid=311">Q&A</a>
-          <a href="https://circle.melonbooks.co.jp/inquiry/">お問い合わせ</a>
-        </details>
-        <details class="nav-blue">
-          <summary><h3>Twitter</h3></summary>
-        </details>
-        <a height="600" class="twitter-timeline" href="https://twitter.com/strongestmelon?ref_src=twsrc%5Etfw">Tweets by strongestmelon</a>
+  <nav class="navi" id="navi">
+    <navi></navi>
+  </nav>
+  <header class="header" id="header">
+    <h1>
+      <span>ボーダーコリー</span>
+      <span>&nbsp;と暮らす</span>
+      <span>&nbsp;&nbsp;Company</span>
+    </h1>
+    <div class="header-img">
+      <img src="img/main01.jpg" alt="">
+    </div>
+    <div class="information">
+      <h2>Information</h2>
+      <div class="info-line">
+        <ul class="info-wrapper">
+          <li v-for="item in result" :key="item.title">
+            <p class="info-date">{{item.date}}</p>
+            <p class="info-title">{{item.title}}</p>
+          </li>
+        </ul>
+        <div class="btn01"><a href="news.html">お知らせへ</a></div>
       </div>
     </div>
-    
-    <transition name="fade">
-      <div class="bg" @click.self="close" v-show="isShow">
-        <transition name="slide" @after-leave="afterLeave">
-          <div class="modal" v-show="isShow">
-            <div class="img-wrapper"><img :src="src" alt=""></div>
-            <button class="modal-btn" @click="close">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </transition>
-      </div>
-    </transition>
-    
+    <div class="moving-icon">
+      <svg id="icon-mouse-scroll" viewBox="-105 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#fff" d="M151 0C68 0 0 68 0 151v210a151 151 0 0 0 301 0V151C301 68 234 0 151 0zm119 361a120 120 0 0 1-239 0V151a120 120 0 0 1 239 0zm0 0" />
+        <path class="scroll" fill="#ea3970" stroke-width="2" d="M151 102c-9 0-16 7-16 15v71a15 15 0 0 0 31 0v-71c0-8-7-15-15-15zm0 0" />
+      </svg>
+      <p>scroll</p>
+    </div>
+  </header>
+
+  <div class="container" id="app">
     <main class="main">
-      <div class="infomation">
-        <a href="pdf/about_air_event_form.pdf" target="_blank">【重要】サークルポータル内での登録フォーム実装について</a>
-      </div>
-      <h3>募集中のエアイベント一覧</h3>
-      <div class="filter">
-        <p>イベントを探す</p>
-        <div class="filter-year">
-          <label v-for="index of 2" :class='{active:2019+index === year}' :key="index">
-            <input v-model="year" :value="2019 + index" type="radio" name="year" @click='isActive'>
-            {{2019 + index}}年
-          </label>
-        </div>
-        <div class="filter-month">
-          <label v-for="index of 12" :class="{active:index === month }">
-            <input v-model="month" :value="index" type="radio" name="month" @click="isActive">
-            {{index}}月
-          </label>
-        </div>
-        <div class="btn-clear">
-          <button v-on:click="removetext()">クリア</button>
-        </div>
-        <p>{{result.length}}件</p>
-      </div>
-      
-      <hooper :items-to-show="2.5">
-        <slide
-          v-for="(item,index) in result"
-          :key="item.index"
-        >
-          <div class="data-wrapper">
-            <div class="g-img">
-              <img src="https://picsum.photos/700/200">
-              <!-- <img :src="item.img"> -->
+      <section class="works">
+        <h2 class="title1"><span>Works</span></h2>
+        <p class="subtitle1">事例</p>
+        <hooper class="pc-display" :items-to-show="4" mouseDrag="false">
+          <slide
+            v-for="(item,index) in result"
+            :key="item.index"
+          >
+            <div class="data-wrapper">
+              <div class="g-img">
+                <img :src="item.img">
+              </div>
+              <div class="g-date">
+                {{ item.date }}
+              </div>
+              <div class="g-title">
+                {{ item.title }}
+              </div>
+              <div class="g-body">
+                {{ item.body.substring(0,48) }}…
+              </div>
             </div>
-            <div class="g-schedule">
-              {{ item.schedule }}
+          </slide>
+        </hooper>
+        <hooper class="sp-display" :items-to-show="1" wheelControl="false">
+          <slide
+            v-for="item in items"
+            :key="item.title"
+          >
+            <div class="data-wrapper">
+              <div class="g-img">
+                <img :src="item.img">
+              </div>
+              <div class="g-date">
+                {{ item.date }}
+              </div>
+              <div class="g-title">
+                {{ item.title }}
+              </div>
+              <div class="g-body">
+                {{ item.body.substring(0,48) }}…
+              </div>
             </div>
-            <div class="g-host">
-              主催:{{ item.host }}
-            </div>
-            <div class="g-title">
-              {{ item.title }}
-            </div>
-            <div class="g-genre">
-              <span>{{ item.genre }}</span>
-            </div>
-            <div class="g-deadline">
-              募集期間<br>{{ item.schedule }}
-            </div>
-            <div class="g-link">
-              <a :href="item.url">募集ページへ</a>
-              <a :href="item.url">イベント公式サイトへ</a>
-            </div>
+          </slide>
+        </hooper>
+        <div class="btn01"><a href="works.html">事例をもっと見る</a></div>
+      </section>
+      <section class="message">
+        <h2 class="title1"><span>Message</span></h2>
+        <p class="subtitle1">メッセージ</p>
+        <div class="message-inner">
+          <div class="svg-atoz">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550.08 155.58"><g id="レイヤー_2" data-name="レイヤー 2"><g id="レイヤー_1-2" data-name="レイヤー 1"><path d="M61,31.45H79.43l56.77,154H112.9L70.22,61.21,27.54,185.44H4.24ZM30.4,131.11h81v20.55h-81Z" transform="translate(-4.24 -31.45)"/><path d="M207.15,75.51h49.57V95H207.15Zm17.53,103.1q-6.19-7.35-6.19-21.76V43.53h21.6V157.06a10.38,10.38,0,0,0,1.59,6.2,5.43,5.43,0,0,0,4.66,2.17h10.38V186h-12.5Q230.89,186,224.68,178.61Z" transform="translate(-4.24 -31.45)"/><path d="M304.06,181.42a37.07,37.07,0,0,1-15.52-16.36q-5.34-10.76-5.34-25.9v-17.9q0-14.92,5.34-25.57a36.87,36.87,0,0,1,15.52-16.21q10.17-5.55,24.46-5.56T353,79.48A36.8,36.8,0,0,1,368.5,95.69q5.36,10.64,5.35,25.57v18.22q0,15-5.35,25.68A37.07,37.07,0,0,1,353,181.42Q342.82,187,328.52,187T304.06,181.42Zm42-22q6.19-7.09,6.2-19.91V121.26q0-12.81-6.2-19.8t-17.53-7q-11.32,0-17.52,7t-6.2,19.8v18.22q0,12.81,6.2,19.91t17.52,7.1Q339.86,166.49,346.05,159.39Z" transform="translate(-4.24 -31.45)"/><path d="M552.2,50.09l-67,114.81h69.16v20.54H458.58V166.8L526.15,52H460.48V31.45H552.2Z" transform="translate(-4.24 -31.45)"/></g></g></svg>
           </div>
-        </slide>
-      </hooper>
-      <p v-if="result.length === 0" style="padding:100px 0;text-align: center;">開催予定のイベントはありません</p>
-
-      <h3>メリット</h3>
-      <h4><span>サークル様向けメリット</span></h4>
-      <div class="box-wrapper">
-        <div class="box">
-          <p><img src="img/icon01.png"></p>
-          <h5>販売価格の85%還元</h5>
-          <p>イベント販売分に関しては85%還元いたします。</p>
+          <p>方針日本語は、記事者百科を得最終・目的にできる要件の陳述名てプライバシーに関する、
+            <br>7条1文1条のペディア法表現として、必要Attributionを配信満たすてなりた。
+            <br>
+            <br>付法引用は、個人・方針がさメディアは例でなかっことをフリーにさ中を、管理の記事を基づきことを原則に関して、要件ではなく目的の記事をしでませ。
+            <br>
+            <br>その俳句の要件に従って、米国の著作国権と、被決議法(URLプロジェクト理由文章記事ライセンス枠組み理事)の参考権者として見解防止承諾のことです、引用を十分あるたのを認定できて下さいた。</p>
         </div>
-        <div class="box">
-          <p><img src="img/icon02.png"></p>
-          <h5>ポータルから簡単登録</h5>
-          <p>メロンサークルポータルアカウントを登録するだけで簡単に参加できます。<br>ポータルに登録している作品情報を活用もできます。</p>
-        </div>
-        <div class="box">
-          <p><img src="img/icon03.png"></p>
-          <h5>イベント在庫預かり無料</h5>
-          <p>イベント終了後の残部は無料でメロンブックスにお預け可能です。</p>
-        </div>
-      </div>
-      <h4><span class="border-yellow">イベンター様向けメリット</span></h4>
-      <div class="box-wrapper">
-        <div class="box">
-          <p><img src="img/icon01.png"></p>
-          <h5>すべて無料で開催可能</h5>
-          <p>商品ページの運用、決済、発送等はすべてメロンが代行対応<br>イベンター様は募集、告知のみで開催できます。</p>
-        </div>
-        <div class="box">
-          <p><img src="img/icon04.png"></p>
-          <h5>運用はすべて代行</h5>
-          <p>ポータル募集ページの運用、作品管理、納品受付、販売ページ管理、決済、発送<br>すべてメロンブックスが代行お対応します。</p>
-        </div>
-      </div>
-      <div class="box-wrapper">
-        <div class="box">
-          <p><img src="img/icon01.png"></p>
-          <h5>最大5%を還元</h5>
-          <p>エアイベント内売上の5%を主催者様に還元いたします。<br>※還元率のご相談ももちろん可能です。</p>
-        </div>
-        <div class="box">
-          <p><img src="img/icon05.png"></p>
-          <h5>実際のイベントとの併催も可能</h5>
-          <p>元イベントの当落に関わらず、エアイベント限定の追加募集が可能です。</p>
-        </div>
-      </div>
-      <h4><span class="border-blue">来場者様向けメリット</span></h4>
-      <div class="box-wrapper">
-        <div class="box">
-          <p><img src="img/icon06.png"></p>
-          <h5>委託書店より安く販売</h5>
-          <p>掛率が高い分、店頭価格を下げて頒布できますので、委託書店よりも安く購入できます。</p>
-        </div>
-        <div class="box">
-          <p><img src="img/icon07.png"></p>
-          <h5>発送費用が安い</h5>
-          <p>メール便：270円、宅急便：600円<br>自家通販よりも安く発送可能です。</p>
-        </div>
-        <div class="box">
-          <p><img src="img/icon08.png"></p>
-          <h5>作品がすぐに届く</h5>
-          <p>当日16時までのご注文については即日発送いたします。<br>※お住いの地域、混雑状況によりご対応が難しい場合がございます。</p>
-        </div>
-      </div>
-
-      <h3>エアイベント開催履歴</h3>
-      <div class="filter">
-        <p>イベントを探す</p>
-        <div class="filter-year">
-          <label v-for="index of 2" :class='{active:2019+index === year2}' :key="index">
-            <input v-model="year2" :value="2019 + index" type="radio" name="year2" @click='isActive'>
-            {{2019 + index}}年
-          </label>
-        </div>
-        <div class="filter-month">
-          <label v-for="index of 12" :class="{active:index === month2 }">
-            <input v-model="month2" :value="index" type="radio" name="month2" @click="isActive">
-            {{index}}月
-          </label>
-        </div>
-        <div class="btn-clear">
-          <button v-on:click="removetext2()">クリア</button>
-        </div>
-        <p>{{past.length}}件</p>
-      </div>
-      
-      <hooper :items-to-show="2.5">
-        <slide
-          v-for="(item,index) in past"
-          :key="item.index"
-        >
-          <div class="data-wrapper">
-            <div class="g-img">
-              <img src="https://picsum.photos/700/200">
-              <!-- <img :src="item.img"> -->
-            </div>
-            <div class="g-schedule">
-              {{ item.schedule }}
-            </div>
-            <div class="g-host">
-              主催:{{ item.host }}
-            </div>
-            <div class="g-title">
-              {{ item.title }}
-            </div>
-            <div class="g-genre">
-              <span>{{ item.genre }}</span>
-            </div>
-          </div>
-        </slide>
-      </hooper>
-      <p v-if="past.length === 0" style="padding:100px 0;text-align: center;">イベントはありません</p>
-
-
+      </section>
     </main>
   </div>
 
-  <div class="footer">
-    <div class="copyright">2020&copy;Melonbooks</div>
-  </div>
+  <footer class="footer" id="foot">
+    <foot></foot>
+  </footer>
   
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hooper@0.2.1/dist/hooper.min.js"></script>
+  <script src="js/components.js"></script>
   <script src="js/events.js"></script>
+  <script src="js/header.js"></script>
+  <script>
+    new Vue({ el: '#navi' })
+    new Vue({ el: '#foot' })
+  </script>
 </body>
 
 </html>
