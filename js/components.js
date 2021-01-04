@@ -26,6 +26,16 @@ Vue.component('navi', {
                 <li><a href="works.html">うちの子について</a></li>
             </ul>
             <ul class="side-inner">
+                <li><a href="news.html">ボーダーコリー概要</a></li>
+                <li><a href="works.html">遊び</a></li>
+                <li><a href="works.html">しつけ</a></li>
+            </ul>
+            <ul class="side-inner">
+                <li><a href="news.html">飼う前のはなし</a></li>
+                <li><a href="works.html">出会い</a></li>
+                <li><a href="works.html">準備</a></li>
+            </ul>
+            <ul class="side-inner">
                 <li><a href="news.html">生活</a></li>
                 <li><a href="works.html">遊び</a></li>
                 <li><a href="works.html">しつけ</a></li>
@@ -34,11 +44,6 @@ Vue.component('navi', {
                 <li><a href="news.html">健康</a></li>
                 <li><a href="works.html">怪我・傷</a></li>
                 <li><a href="works.html">体調不良</a></li>
-            </ul>
-            <ul class="side-inner">
-                <li><a href="news.html">飼う前のはなし</a></li>
-                <li><a href="works.html">遊び</a></li>
-                <li><a href="works.html">しつけ</a></li>
             </ul>
         </div>
     `
@@ -57,7 +62,7 @@ Vue.component('navi', {
                 <li><a href="news.html">Health</a></li>
                 <li><a href="works.html">Life</a></li>
             </ul>
-            <div class="copyright">2020&copy;FictiousFoodsCompany</div>
+            <div class="copyright">&copy;201089 安田大輝</div>
         </div>
     `
   })
