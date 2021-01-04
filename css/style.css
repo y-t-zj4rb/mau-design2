@@ -375,7 +375,8 @@ section{
 }
 /*-------------------------*/
 .header-overview .header-left{
-	background-color: #1ca59e;
+	/* background-color: #1ca59e; */
+	background-color: #ab9f81;
 }
 .header-overview img{
 	object-position: 50% 50%;
