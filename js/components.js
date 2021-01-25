@@ -58,9 +58,10 @@ Vue.component('navi', {
                 </a>
             </div>
             <ul class="foot-nav">
-                <li><a href="./">Home</a></li>
-                <li><a href="news.html">Health</a></li>
-                <li><a href="works.html">Life</a></li>
+                <li><a href="./">ホーム</a></li>
+                <li><a href="news.html">健康</a></li>
+                <li><a href="works.html">生活</a></li>
+                <li><a href="works.html">飼う前に</a></li>
             </ul>
             <div class="copyright">&copy;201089 安田大輝</div>
         </div>
