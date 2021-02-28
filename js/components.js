@@ -63,7 +63,7 @@ Vue.component('navi', {
                 <li><a href="life.html">生活</a></li>
                 <li><a href="ready.html">飼う前に</a></li>
             </ul>
-            <div class="copyright">&copy;201089 安田大輝</div>
+            <div class="copyright">&copy;201089 ****</div>
         </div>
     `
   })
